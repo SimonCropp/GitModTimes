@@ -67,8 +67,10 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GitModifiedTimesFinder.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="GitModifiedTimesFixer.cs" />
     <Compile Include="IncludeFile.cs" />
     <Compile Include="LinkedPath.cs" />
+    <Compile Include="StopWhenCommit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
@@ -91,11 +93,11 @@
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
     <MakeDir Directories="$(NugetDir)" />
-    <Copy SourceFiles="$(ProjectDir)NugetAssets\ObjectApproval.nuspec" DestinationFolder="$(NugetDir)" />
-    <Copy SourceFiles="$(OutputPath)ObjectApproval.dll" DestinationFolder="$(NugetDir)\Lib\NET40" />
-    <Copy SourceFiles="$(OutputPath)ObjectApproval.pdb" DestinationFolder="$(NugetDir)\Lib\NET40" />
-    <Copy SourceFiles="$(OutputPath)ObjectApproval.xml" DestinationFolder="$(NugetDir)\Lib\NET40" />
-    <PepitaPackage.CreatePackageTask NuGetBuildDirectory="$(NugetDir)" MetadataAssembly="$(OutputPath)ObjectApproval.dll" />
+    <Copy SourceFiles="$(ProjectDir)NugetAssets\GitModTimes.nuspec" DestinationFolder="$(NugetDir)" />
+    <Copy SourceFiles="$(OutputPath)GitModTimes.dll" DestinationFolder="$(NugetDir)\Lib\NET452" />
+    <Copy SourceFiles="$(OutputPath)GitModTimes.pdb" DestinationFolder="$(NugetDir)\Lib\NET452" />
+    <Copy SourceFiles="$(OutputPath)GitModTimes.xml" DestinationFolder="$(NugetDir)\Lib\NET452" />
+    <PepitaPackage.CreatePackageTask NuGetBuildDirectory="$(NugetDir)" MetadataAssembly="$(OutputPath)GitModTimes.dll" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
