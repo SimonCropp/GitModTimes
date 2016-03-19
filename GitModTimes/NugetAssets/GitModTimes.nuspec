@@ -10,9 +10,9 @@
     <projectUrl>http://github.com/SimonCropp/GitModTimes</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://raw.github.com/SimonCropp/GitModTimes/master/Icons/package_icon.png</iconUrl>
-    <description>Extends ApprovalTests to allow simple approval of complex models.</description>
+    <description>Helper lib to extract file modified times from a git repository.</description>
     <language>en-AU</language>
-    <tags>Json, ApprovalTests</tags>
+    <tags>Git</tags>
     <dependencies>
       <dependency id="LibGit2Sharp" version="[3.0.10, 4.0.0)"/>
     </dependencies>

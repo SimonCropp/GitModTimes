@@ -69,7 +69,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ObjectApproval\GitModTimes.csproj">
+    <ProjectReference Include="..\GitModTimes\GitModTimes.csproj">
       <Project>{C35E31DE-40A9-45C0-817B-41BE5B7D076E}</Project>
       <Name>GitModTimes</Name>
     </ProjectReference>
