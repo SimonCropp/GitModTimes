@@ -13,6 +13,8 @@ using ObjectApproval;
 [UseReporter(typeof(DiffReporter), typeof(AllFailingTestsClipboardReporter))]
 public class GitModifiedTimesFinderTests
 {
+    DateTimeOffset epoch = new DateTimeOffset(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+
     public GitModifiedTimesFinderTests()
     {
         var testDir = Path.Combine(Path.GetTempPath(), "GitModTimes");
@@ -27,7 +29,7 @@ public class GitModifiedTimesFinderTests
     [Explicit]
     public void SetLastModifiedTimeSpecificDir()
     {
-        GitModifiedTimesFixer.FixTimes(@"C:\Code\docs.particular.net", DateTime.Now);
+        GitModifiedTimesFixer.FixTimes(@"C:\Code\docs.particular.net", DateTimeOffset.UtcNow);
     }
 
     [Test]
@@ -58,10 +60,10 @@ public class GitModifiedTimesFinderTests
     public void Can_fix_dates()
     {
         var testDir = CreateTestDir("Can_fix_dates");
-        var repository = RepoBuilder.BuildSimpleTestRepository(testDir);
-        repository.Dispose();
-
-        GitModifiedTimesFixer.FixTimes(testDir, new DateTime(1970, 1, 1));
+        using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
+        {
+            repository.FixTimes(testDir, epoch);
+        }
         ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
     }
 
@@ -79,7 +81,7 @@ public class GitModifiedTimesFinderTests
             var commit = repository.Commits
                 .Skip(2)
                 .First();
-            GitModifiedTimesFixer.FixTimes(testDir, new DateTime(1970, 1, 1), commit.Author.When);
+            repository.FixTimes(testDir, epoch, commit.Author.When);
             ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
         }
     }
