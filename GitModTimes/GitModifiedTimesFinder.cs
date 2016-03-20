@@ -8,7 +8,7 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFinder
     {
-        public static List<FileTime> GetTimes(string gitDirectory, DateTimeOffset? stopBefore = null)
+        public static FindResult GetTimes(string gitDirectory, DateTimeOffset? stopBefore = null)
         {
             using (var repository = new Repository(gitDirectory))
             {
@@ -16,7 +16,7 @@ namespace GitModTimes
             }
         }
 
-        public static List<FileTime> GetTimes(this Repository repository, string gitDirectory, DateTimeOffset? stopBefore = null)
+        public static FindResult GetTimes(this Repository repository, string gitDirectory, DateTimeOffset? stopBefore = null)
         {
             var allRelativePaths = repository.GetAllRelativePaths(gitDirectory, stopBefore)
                 .ToList();
@@ -93,7 +93,9 @@ namespace GitModTimes
                     }
                 }
             }
-            return fileTimes;
+            return new FindResult(
+                foundFiles: fileTimes, 
+                missingFiles: allRelativePaths.Select(x=>x.OriginalPath).ToList());
         }
 
 

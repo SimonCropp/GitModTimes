@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 
 public static class DirectoryHelper
 {
@@ -8,7 +7,6 @@ public static class DirectoryHelper
     {
         if (!Directory.Exists(directoryPath))
         {
-            Trace.WriteLine($"Directory '{directoryPath}' is missing and can't be removed.");
             return;
         }
 

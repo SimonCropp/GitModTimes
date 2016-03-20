@@ -118,7 +118,10 @@ public class RepoBuilder
 
                     var dir = Path.Combine(repository.Info.WorkingDirectory, directory);
 
-                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
                 }
             }
 

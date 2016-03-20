@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,36 +13,21 @@ using ObjectApproval;
 [UseReporter(typeof(DiffReporter), typeof(AllFailingTestsClipboardReporter))]
 public class GitModifiedTimesFinderTests
 {
-    [Test]
-    [Explicit]
-    public void PerformanceMeasurement()
+    public GitModifiedTimesFinderTests()
     {
-        var testDir = Path.Combine(Path.GetTempPath(), "PerformanceMeasurement");
-        if (Directory.Exists(testDir))
+        var testDir = Path.Combine(Path.GetTempPath(), "GitModTimes");
+        Directory.CreateDirectory(testDir);
+        foreach (var directory in Directory.EnumerateDirectories(testDir))
         {
-            DirectoryHelper.DeleteDirectory(testDir);
-        }
-        Trace.WriteLine("Cloning...");
-        var sw = Stopwatch.StartNew();
-        Repository.Clone("https://github.com/Particular/docs.particular.net/", testDir);
-        sw.Stop();
-        Trace.WriteLine($"Clone: {sw.ElapsedMilliseconds} ms");
-
-        for (var i = 0; i < 5; i++)
-        {
-            Trace.WriteLine("Decorating...");
-            sw.Restart();
-            GitModifiedTimesFinder.GetTimes(testDir);
-            sw.Stop();
-            Trace.WriteLine($"DecorateWithLastModifiedCommitMetaData: {sw.ElapsedMilliseconds} ms");
+            DirectoryHelper.DeleteDirectory(directory);
         }
     }
 
     [Test]
     [Explicit]
-    public void SetLastModifiedTime()
+    public void SetLastModifiedTimeSpecificDir()
     {
-        GitModifiedTimesFixer.FixTimes(@"C:\Code\docs.particular.net");
+        GitModifiedTimesFixer.FixTimes(@"C:\Code\docs.particular.net", DateTime.Now);
     }
 
     [Test]
@@ -51,38 +37,16 @@ public class GitModifiedTimesFinderTests
         using (var repository = new Repository(@"C:\Code\docs.particular.net"))
         {
             var sw = Stopwatch.StartNew();
-            var commit = repository.Commits.Skip(2).First();
-            var stopBefore = commit.Author.When;
-            var list = repository.GetTimes( @"C:\Code\docs.particular.net", stopBefore);
+            var list = repository.GetTimes(@"C:\Code\docs.particular.net");
             sw.Stop();
-            Trace.WriteLine($"DecorateWithLastModifiedCommitMetaData: {sw.ElapsedMilliseconds} ms. Items: {list.Count}");
-            //foreach (var item in list)
-            //{
-            //    Trace.WriteLine(item.RelativePath);
-            //}
+            Trace.WriteLine($"GetTimes: {sw.ElapsedMilliseconds} ms. Items: {list.FoundFiles.Count}");
         }
-
-    }
-
-    [Test]
-    [Explicit]
-    public void Foo()
-    {
-        var sw = Stopwatch.StartNew();
-        Process.Start(@"C:\Users\simon\AppData\Local\GitHub\PortableGit_cf76fc1621ac41ad4fe86c420ab5ff403f1808b9\cmd\git.exe", "log -1 --format=\"%ad\" -- Snippets/Edmx/EdmxSnippets/EfEdmx/MySample.Context.tt").WaitForExit();
-        sw.Stop();
-        Trace.WriteLine($"DecorateWithLastModifiedCommitMetaData: {sw.ElapsedMilliseconds} ms.");
     }
 
     [Test]
     public void Can_get_last_modified_dates()
     {
-        var testDir = Path.Combine(Path.GetTempPath(), "Can_get_last_modified_dates");
-        if (Directory.Exists(testDir))
-        {
-            DirectoryHelper.DeleteDirectory(testDir);
-        }
-
+        var testDir = CreateTestDir("Can_get_last_modified_dates");
         using (var repository = RepoBuilder.BuildTestRepository(testDir))
         {
             var modifiedTimes = repository.GetTimes(testDir);
@@ -91,20 +55,52 @@ public class GitModifiedTimesFinderTests
     }
 
     [Test]
-    public void Can_get_last_modified_dates_with_cutoff()
+    public void Can_fix_dates()
     {
-        var testDir = Path.Combine(Path.GetTempPath(), "Can_get_last_modified_dates_with_cutoff");
-        if (Directory.Exists(testDir))
-        {
-            DirectoryHelper.DeleteDirectory(testDir);
-        }
+        var testDir = CreateTestDir("Can_fix_dates");
+        var repository = RepoBuilder.BuildSimpleTestRepository(testDir);
+        repository.Dispose();
 
+        GitModifiedTimesFixer.FixTimes(testDir, new DateTime(1970, 1, 1));
+        ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
+    }
+
+    static string CreateTestDir(string suffix)
+    {
+        return Path.Combine(Path.GetTempPath(), "GitModTimes", suffix);
+    }
+
+    [Test]
+    public void Can_fix_dates_with_cutoff()
+    {
+        var testDir = CreateTestDir("Can_fix_dates_with_cutoff");
         using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
         {
-            var first = repository.Commits
+            var commit = repository.Commits
                 .Skip(2)
                 .First();
-            var modifiedTimes = repository.GetTimes(testDir, first.Author.When);
+            GitModifiedTimesFixer.FixTimes(testDir, new DateTime(1970, 1, 1), commit.Author.When);
+            ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
+        }
+    }
+
+    static IEnumerable<Tuple<string, DateTime>> GetNonGitFiles(string directory)
+    {
+        return from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
+            where !file.Contains(".git")
+            select new Tuple<string, DateTime>(file, File.GetLastWriteTimeUtc(file));
+    }
+
+    [Test]
+    public void Can_get_last_modified_dates_with_cutoff()
+    {
+        var testDir = CreateTestDir("Can_get_last_modified_dates_with_cutoff");
+        using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
+        {
+            var commit = repository.Commits
+                .Skip(2)
+                .First();
+            var modifiedTimes = repository.GetTimes(testDir, commit.Author.When);
             ObjectApprover.VerifyWithJson(modifiedTimes, Scrubber(testDir));
         }
     }

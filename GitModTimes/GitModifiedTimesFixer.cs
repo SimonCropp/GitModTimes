@@ -5,13 +5,17 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFixer
     {
-        public static void FixTimes(string gitDirectory, DateTimeOffset? stopBefore = null)
+        public static void FixTimes(string gitDirectory, DateTime missingFileDateTime, DateTimeOffset? stopBefore = null)
         {
-            foreach (var fileTime in GitModifiedTimesFinder.GetTimes(gitDirectory, stopBefore: stopBefore))
+            var findResult = GitModifiedTimesFinder.GetTimes(gitDirectory, stopBefore);
+            foreach (var fileTime in findResult.FoundFiles)
             {
                 File.SetLastWriteTimeUtc(fileTime.Path, fileTime.Time.UtcDateTime);
             }
+            foreach (var file in findResult.MissingFiles)
+            {
+                File.SetLastWriteTimeUtc(file, missingFileDateTime);
+            }
         }
-
     }
 }
