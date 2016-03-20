@@ -72,6 +72,7 @@
     <Compile Include="GitModifiedTimesFinder.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="GitModifiedTimesFixer.cs" />
+    <Compile Include="IncludeFile.cs" />
     <Compile Include="LinkedPath.cs" />
   </ItemGroup>
   <ItemGroup>

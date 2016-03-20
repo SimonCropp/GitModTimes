@@ -8,17 +8,17 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFinder
     {
-        public static FindResult GetTimes(string gitDirectory, DateTimeOffset? stopBefore = null)
+        public static FindResult GetTimes(string gitDirectory, IncludeFile includeFile = null,DateTimeOffset ? stopBefore = null)
         {
             using (var repository = new Repository(gitDirectory))
             {
-                return repository.GetTimes(gitDirectory, stopBefore);
+                return repository.GetTimes(gitDirectory, includeFile ,stopBefore);
             }
         }
 
-        public static FindResult GetTimes(this Repository repository, string gitDirectory, DateTimeOffset? stopBefore = null)
+        public static FindResult GetTimes(this Repository repository, string gitDirectory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
         {
-            var allRelativePaths = repository.GetAllRelativePaths(gitDirectory, stopBefore)
+            var allRelativePaths = repository.GetAllRelativePaths(gitDirectory, includeFile, stopBefore)
                 .ToList();
 
             var fileTimes = new List<FileTime>();
@@ -110,11 +110,12 @@ namespace GitModTimes
         }
 
 
-        static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, DateTimeOffset? stopBefore = null)
+        static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
         {
             return from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
                 where
                     !file.Contains(".git") &&
+                    (includeFile == null || includeFile(file)) &&
                     (stopBefore == null || File.GetLastWriteTimeUtc(file) > stopBefore.Value.UtcDateTime)
                 let gitPath = GetRelativePath(directory, file)
                 where !repository.Ignore.IsPathIgnored(gitPath)

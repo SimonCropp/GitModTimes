@@ -81,7 +81,7 @@ public class GitModifiedTimesFinderTests
             var commit = repository.Commits
                 .Skip(2)
                 .First();
-            repository.FixTimes(testDir, epoch, commit.Author.When);
+            repository.FixTimes(testDir, epoch, null, commit.Author.When);
             ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
         }
     }
@@ -102,7 +102,7 @@ public class GitModifiedTimesFinderTests
             var commit = repository.Commits
                 .Skip(2)
                 .First();
-            var modifiedTimes = repository.GetTimes(testDir, commit.Author.When);
+            var modifiedTimes = repository.GetTimes(testDir, null,commit.Author.When);
             ObjectApprover.VerifyWithJson(modifiedTimes, Scrubber(testDir));
         }
     }

@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 namespace GitModTimes
 {
-
     [DebuggerDisplay("RelativePath={RelativePath}, Time={Time}, Path={Path}")]
     public class FileTime
     {
