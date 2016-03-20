@@ -8,17 +8,17 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFinder
     {
-        public static List<FileTime> GetTimes(string gitDirectory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        public static List<FileTime> GetTimes(string gitDirectory, DateTimeOffset? stopBefore = null)
         {
             using (var repository = new Repository(gitDirectory))
             {
-                return repository.GetTimes(gitDirectory, includeFile, stopBefore);
+                return repository.GetTimes(gitDirectory, stopBefore);
             }
         }
 
-        public static List<FileTime> GetTimes(this Repository repository, string gitDirectory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        public static List<FileTime> GetTimes(this Repository repository, string gitDirectory, DateTimeOffset? stopBefore = null)
         {
-            var allRelativePaths = repository.GetAllRelativePaths(gitDirectory, includeFile, stopBefore)
+            var allRelativePaths = repository.GetAllRelativePaths(gitDirectory, stopBefore)
                 .ToList();
 
             var fileTimes = new List<FileTime>();
@@ -108,12 +108,11 @@ namespace GitModTimes
         }
 
 
-        static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, DateTimeOffset? stopBefore = null)
         {
             return from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
                 where
                     !file.Contains(".git") &&
-                    (includeFile == null || includeFile(file)) &&
                     (stopBefore == null || File.GetLastWriteTimeUtc(file) > stopBefore.Value.UtcDateTime)
                 let gitPath = GetRelativePath(directory, file)
                 where !repository.Ignore.IsPathIgnored(gitPath)

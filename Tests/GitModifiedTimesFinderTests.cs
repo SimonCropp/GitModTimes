@@ -31,7 +31,7 @@ public class GitModifiedTimesFinderTests
         {
             Trace.WriteLine("Decorating...");
             sw.Restart();
-            GitModifiedTimesFinder.GetTimes(testDir, path => path.EndsWith(".md"));
+            GitModifiedTimesFinder.GetTimes(testDir);
             sw.Stop();
             Trace.WriteLine($"DecorateWithLastModifiedCommitMetaData: {sw.ElapsedMilliseconds} ms");
         }
@@ -53,7 +53,7 @@ public class GitModifiedTimesFinderTests
             var sw = Stopwatch.StartNew();
             var commit = repository.Commits.Skip(2).First();
             var stopBefore = commit.Author.When;
-            var list = repository.GetTimes( @"C:\Code\docs.particular.net", path => path.EndsWith(".cs"), stopBefore);
+            var list = repository.GetTimes( @"C:\Code\docs.particular.net", stopBefore);
             sw.Stop();
             Trace.WriteLine($"DecorateWithLastModifiedCommitMetaData: {sw.ElapsedMilliseconds} ms. Items: {list.Count}");
             //foreach (var item in list)
@@ -85,7 +85,7 @@ public class GitModifiedTimesFinderTests
 
         using (var repository = RepoBuilder.BuildTestRepository(testDir))
         {
-            var modifiedTimes = repository.GetTimes(testDir, path => path.EndsWith(".md"));
+            var modifiedTimes = repository.GetTimes(testDir);
             ObjectApprover.VerifyWithJson(modifiedTimes, Scrubber(testDir));
         }
     }
@@ -104,7 +104,7 @@ public class GitModifiedTimesFinderTests
             var first = repository.Commits
                 .Skip(2)
                 .First();
-            var modifiedTimes = repository.GetTimes(testDir, path => path.EndsWith(".md"), first.Author.When);
+            var modifiedTimes = repository.GetTimes(testDir, first.Author.When);
             ObjectApprover.VerifyWithJson(modifiedTimes, Scrubber(testDir));
         }
     }

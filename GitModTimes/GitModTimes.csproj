@@ -68,9 +68,7 @@
     <Compile Include="GitModifiedTimesFinder.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="GitModifiedTimesFixer.cs" />
-    <Compile Include="IncludeFile.cs" />
     <Compile Include="LinkedPath.cs" />
-    <Compile Include="StopWhenCommit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
