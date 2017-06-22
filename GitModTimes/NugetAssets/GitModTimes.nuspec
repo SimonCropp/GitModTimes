@@ -14,7 +14,7 @@
     <language>en-AU</language>
     <tags>Git</tags>
     <dependencies>
-      <dependency id="LibGit2Sharp" version="[0.23.0, 1.0.0)"/>
+      <dependency id="LibGit2Sharp" version="[0.24.0, 1.0.0)"/>
     </dependencies>
   </metadata>
 </package>
