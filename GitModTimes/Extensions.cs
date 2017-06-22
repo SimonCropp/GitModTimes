@@ -20,6 +20,7 @@ static class Extensions
             throw new UnbornBranchException();
         }
     }
+
     internal static ObjectId RetrieveBlobObjectId(this Commit commit, string path)
     {
         var treeEntry = commit[path];
