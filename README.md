@@ -1,4 +1,4 @@
-![Icon](https://raw.github.com/SimonCropp/GitModTimes/master/Icons/package_icon.png)
+![Icon](https://raw.githubusercontent.com/SimonCropp/GitModTimes/master/package_icon.png)
 
 
 # GitModTimes
