@@ -8,8 +8,6 @@ before_build:
 build:
   verbosity: minimal
 test_script:
-- cmd: >-
-    %xunit20%\xunit.console Tests\bin\Release\net47\Tests.dll  Tests\bin\Release\net47\Tests.dll
 
 artifacts:
 - path: nugets\**\*.nupkg
