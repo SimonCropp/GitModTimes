@@ -1,8 +1,7 @@
 ﻿using System.IO;
 
-public static class DirectoryHelper
+static class DirectoryHelper
 {
-
     public static void DeleteDirectory(string directoryPath)
     {
         if (!Directory.Exists(directoryPath))

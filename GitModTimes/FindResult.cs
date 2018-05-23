@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 namespace GitModTimes
 {
-
     [DebuggerDisplay("FoundFiles={FoundFiles.Count}, MissingFiles={MissingFiles.Count}")]
     public class FindResult
     {

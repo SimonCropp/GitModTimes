@@ -36,5 +36,4 @@ static class Extensions
 
         throw new Exception($"Path '{path}' doesn't lead to a Blob in commit {commit.Id.ToString(7)}.");
     }
-
 }

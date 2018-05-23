@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using ApprovalTests.Reporters;
 using GitModTimes;
-using LibGit2Sharp;
-using NUnit.Framework;
 using ObjectApproval;
+using Xunit;
 
-[TestFixture]
-[UseReporter(typeof(DiffReporter), typeof(AllFailingTestsClipboardReporter))]
 public class GitModifiedTimesFinderTests
 {
     DateTimeOffset epoch = new DateTimeOffset(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
@@ -25,27 +20,7 @@ public class GitModifiedTimesFinderTests
         }
     }
 
-    [Test]
-    [Explicit]
-    public void SetLastModifiedTimeSpecificDir()
-    {
-        GitModifiedTimesFixer.FixTimes(@"C:\Code\docs.particular.net", DateTimeOffset.UtcNow);
-    }
-
-    [Test]
-    [Explicit]
-    public void SpecificDir()
-    {
-        using (var repository = new Repository(@"C:\Code\docs.particular.net"))
-        {
-            var sw = Stopwatch.StartNew();
-            var list = repository.GetTimes(@"C:\Code\docs.particular.net");
-            sw.Stop();
-            Trace.WriteLine($"GetTimes: {sw.ElapsedMilliseconds} ms. Items: {list.FoundFiles.Count}");
-        }
-    }
-
-    [Test]
+    [Fact]
     public void Can_get_last_modified_dates()
     {
         var testDir = CreateTestDir("Can_get_last_modified_dates");
@@ -56,7 +31,7 @@ public class GitModifiedTimesFinderTests
         }
     }
 
-    [Test]
+    [Fact]
     public void Can_fix_dates()
     {
         var testDir = CreateTestDir("Can_fix_dates");
@@ -72,7 +47,7 @@ public class GitModifiedTimesFinderTests
         return Path.Combine(Path.GetTempPath(), "GitModTimes", suffix);
     }
 
-    [Test]
+    [Fact]
     public void Can_fix_dates_with_cutoff()
     {
         var testDir = CreateTestDir("Can_fix_dates_with_cutoff");
@@ -93,7 +68,7 @@ public class GitModifiedTimesFinderTests
             select new Tuple<string, DateTime>(file, File.GetLastWriteTimeUtc(file));
     }
 
-    [Test]
+    [Fact]
     public void Can_get_last_modified_dates_with_cutoff()
     {
         var testDir = CreateTestDir("Can_get_last_modified_dates_with_cutoff");

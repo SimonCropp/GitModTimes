@@ -8,11 +8,11 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFinder
     {
-        public static FindResult GetTimes(string gitDirectory, IncludeFile includeFile = null,DateTimeOffset ? stopBefore = null)
+        public static FindResult GetTimes(string gitDirectory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
         {
             using (var repository = new Repository(gitDirectory))
             {
-                return repository.GetTimes(gitDirectory, includeFile ,stopBefore);
+                return repository.GetTimes(gitDirectory, includeFile, stopBefore);
             }
         }
 
@@ -44,6 +44,7 @@ namespace GitModTimes
                     {
                         break;
                     }
+
                     if (seen.Add(commit.Id))
                     {
                         queue.Enqueue(commit);
@@ -93,22 +94,18 @@ namespace GitModTimes
                     }
                 }
             }
+
             return new FindResult(
-                foundFiles: fileTimes, 
-                missingFiles: allRelativePaths.Select(x=>x.OriginalPath).ToList());
+                foundFiles: fileTimes,
+                missingFiles: allRelativePaths.Select(x => x.OriginalPath).ToList());
         }
 
-
-        static FileTime CreateFileTime(this Commit current, LinkedPath path)
-        {
-            return new FileTime
-                (
-                time: current.Committer.When,
-                path: path.OriginalPath,
-                relativePath: path.GitPath
-                );
-        }
-
+        static FileTime CreateFileTime(this Commit current, LinkedPath path) => new FileTime
+        (
+            time: current.Committer.When,
+            path: path.OriginalPath,
+            relativePath: path.GitPath
+        );
 
         static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
         {

@@ -6,8 +6,11 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFixer
     {
-        public static void FixTimes(string gitDirectory, DateTimeOffset missingFileDateTime,
-            IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        public static void FixTimes(
+            string gitDirectory,
+            DateTimeOffset missingFileDateTime,
+            IncludeFile includeFile = null,
+            DateTimeOffset? stopBefore = null)
         {
             using (var repository = new Repository(gitDirectory))
             {
@@ -15,8 +18,12 @@ namespace GitModTimes
             }
         }
 
-        public static void FixTimes(this Repository repository, string gitDirectory, DateTimeOffset missingFileDateTime,
-            IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        public static void FixTimes(
+            this Repository repository,
+            string gitDirectory,
+            DateTimeOffset missingFileDateTime,
+            IncludeFile includeFile = null,
+            DateTimeOffset? stopBefore = null)
         {
             var findResult = repository.GetTimes(gitDirectory, includeFile, stopBefore);
             foreach (var fileTime in findResult.FoundFiles)

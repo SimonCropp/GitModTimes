@@ -3,87 +3,87 @@ using System.Collections.Generic;
 using System.IO;
 using LibGit2Sharp;
 
-public class RepoBuilder
+class RepoBuilder
 {
-
     public static Repository BuildSimpleTestRepository(string directory)
     {
         Repository.Init(directory);
 
         var repository = new Repository(directory);
-            AddCommit(repository, "One", "a@a", "2012-04-17T08:12:35+02:00",
-                new[]
-                    {
-                        new[] {"One.md", "a"},
-                    });
+        AddCommit(repository, "One", "a@a", "2012-04-17T08:12:35+02:00",
+            new[]
+            {
+                new[] {"One.md", "a"},
+            });
 
-            AddCommit(repository, "Two", "b@b", "2012-04-17T08:14:35+02:00",
-                new[]
-                    {
-                        new[] {"Two.md", "a"},
-                    });
+        AddCommit(repository, "Two", "b@b", "2012-04-17T08:14:35+02:00",
+            new[]
+            {
+                new[] {"Two.md", "a"},
+            });
 
-            AddCommit(repository, "Three", "c@c", "2012-04-17T08:22:35+02:00",
-                new[]
-                    {
-                        new[] {"Three.md", "a"},
-                    });
+        AddCommit(repository, "Three", "c@c", "2012-04-17T08:22:35+02:00",
+            new[]
+            {
+                new[] {"Three.md", "a"},
+            });
         return repository;
     }
+
     public static Repository BuildTestRepository(string directory)
     {
         Repository.Init(directory);
 
         var repository = new Repository(directory);
-            AddCommit(repository, "A", "a@a", "2012-04-17T08:12:35+02:00",
-                new[]
-                    {
-                        new[] {"One.md", "a"},
-                        new[] {"Another.md", "a"},
-                    });
+        AddCommit(repository, "A", "a@a", "2012-04-17T08:12:35+02:00",
+            new[]
+            {
+                new[] {"One.md", "a"},
+                new[] {"Another.md", "a"},
+            });
 
-            AddCommit(repository, "B", "b@b", "2012-04-17T08:14:35+02:00",
-                new[]
-                    {
-                        new[] {"Two.md", "a"},
-                    });
+        AddCommit(repository, "B", "b@b", "2012-04-17T08:14:35+02:00",
+            new[]
+            {
+                new[] {"Two.md", "a"},
+            });
 
-            AddCommit(repository, "C", "c@c", "2012-04-17T08:16:35+02:00",
-                new[]
-                    {
-                        new[] {"One.md", "b"},
-                    });
+        AddCommit(repository, "C", "c@c", "2012-04-17T08:16:35+02:00",
+            new[]
+            {
+                new[] {"One.md", "b"},
+            });
 
-            AddCommit(repository, "A", "a@a", "2012-04-17T08:18:35+02:00",
-                new[]
-                    {
-                        new[] {"Orphan.md", "b"},
-                    });
+        AddCommit(repository, "A", "a@a", "2012-04-17T08:18:35+02:00",
+            new[]
+            {
+                new[] {"Orphan.md", "b"},
+            });
 
-            AddMergeCommit(repository, "B", "b@b", "2012-04-17T08:20:35+02:00",
-                new[]
-                    {
-                        new[] {"Two.md", "b"},
-                    });
+        AddMergeCommit(repository, "B", "b@b", "2012-04-17T08:20:35+02:00",
+            new[]
+            {
+                new[] {"Two.md", "b"},
+            });
 
-            AddCommit(repository, "C", "c@c", "2012-04-17T08:22:35+02:00",
-                new[]
-                    {
-                        new[] {"Three.md", "a"},
-                    });
+        AddCommit(repository, "C", "c@c", "2012-04-17T08:22:35+02:00",
+            new[]
+            {
+                new[] {"Three.md", "a"},
+            });
 
-            AddCommit(repository, "D", "d@d", "2012-04-17T08:23:39+02:00",
-                new[]
-                {
-                    new[] {@"productA\toc.md", "a"},
-                    new[] {@"productB\toc.md", "a"}
-                });
+        AddCommit(repository, "D", "d@d", "2012-04-17T08:23:39+02:00",
+            new[]
+            {
+                new[] {@"productA\toc.md", "a"},
+                new[] {@"productB\toc.md", "a"}
+            });
 
-            AddCommit(repository, "D", "d@d", "2012-04-17T08:23:42+02:00",
-                new[]
-                {
-                    new[] {@"productB\subproduct\toc.md", "a"}
-                });
+        AddCommit(repository, "D", "d@d", "2012-04-17T08:23:42+02:00",
+            new[]
+            {
+                new[] {@"productB\subproduct\toc.md", "a"}
+            });
         return repository;
     }
 
@@ -93,7 +93,7 @@ public class RepoBuilder
         var c = AddCommit(repository, name, email, date, content);
 
         var sign = new Signature(c.Author.Name, c.Author.Email, c.Author.When.AddSeconds(17));
-        var m = repository.ObjectDatabase.CreateCommit(sign, sign, "merge", c.Tree, new[] { formerHead, c }, false);
+        var m = repository.ObjectDatabase.CreateCommit(sign, sign, "merge", c.Tree, new[] {formerHead, c}, false);
 
         repository.Refs.UpdateTarget(repository.Refs.Head.ResolveToDirectReference(), m.Id);
     }
@@ -130,7 +130,7 @@ public class RepoBuilder
             File.AppendAllText(filePath, change[1]);
 
             File.SetLastWriteTimeUtc(filePath, dateTimeOffset.DateTime);
-            repository.Stage(change[0]);
+            Commands.Stage(repository, change[0]);
         }
 
         return repository.Commit(name, sign, sign);
