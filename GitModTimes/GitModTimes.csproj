@@ -21,6 +21,6 @@
     </ItemGroup>
   </Target>
   <ItemGroup>
-    <PackageReference Include="LibGit2Sharp" Version="0.25.0" />
+    <PackageReference Include="LibGit2Sharp" Version="0.25.3" />
   </ItemGroup>
 </Project>
