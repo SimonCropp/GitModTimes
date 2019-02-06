@@ -1,6 +1,5 @@
 ![Icon](https://raw.githubusercontent.com/SimonCropp/GitModTimes/master/src/icon.png)
 
-
 # GitModTimes
 
 
