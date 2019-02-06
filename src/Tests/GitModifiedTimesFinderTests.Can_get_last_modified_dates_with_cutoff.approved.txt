@@ -1,17 +1,17 @@
 ﻿{
-  "FoundFiles": [
+  FoundFiles: [
     {
-      "Time": "2012-04-17T08:22:35+02:00",
-      "RelativePath": "Three.md",
-      "Path": "C:\Three.md"
+      Time: 'DateTimeOffset 1',
+      RelativePath: 'Three.md',
+      Path: 'C:\Three.md'
     },
     {
-      "Time": "2012-04-17T08:14:35+02:00",
-      "RelativePath": "Two.md",
-      "Path": "C:\Two.md"
+      Time: 'DateTimeOffset 2',
+      RelativePath: 'Two.md',
+      Path: 'C:\Two.md'
     }
   ],
-  "MissingFiles": [
-    "C:\One.md"
+  MissingFiles: [
+    'C:\One.md'
   ]
 }

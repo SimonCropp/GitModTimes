@@ -1,14 +1,14 @@
 ﻿[
   {
-    "Item1": "C:\One.md",
-    "Item2": "2012-04-17T06:12:35Z"
+    Item1: 'C:\One.md',
+    Item2: 'DateTime 1'
   },
   {
-    "Item1": "C:\Three.md",
-    "Item2": "2012-04-17T06:22:35Z"
+    Item1: 'C:\Three.md',
+    Item2: 'DateTime 2'
   },
   {
-    "Item1": "C:\Two.md",
-    "Item2": "2012-04-17T06:14:35Z"
+    Item1: 'C:\Two.md',
+    Item2: 'DateTime 3'
   }
 ]
