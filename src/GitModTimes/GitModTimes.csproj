@@ -9,9 +9,9 @@
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)) Simon Cropp. All rights reserved</Copyright>
     <PackageTags>Git</PackageTags>
     <Description>Helper lib to extract file modified times from a git repository.</Description>
-    <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/GitModTimes/master/package_icon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/GitModTimes/master/src/icon.png</PackageIconUrl>
     <PackageProjectUrl>http://github.com/SimonCropp/GitModTimes</PackageProjectUrl>
-    <PackageOutputPath>..\nugets</PackageOutputPath>
+    <PackageOutputPath>..\..\nugets</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.25.4" />
