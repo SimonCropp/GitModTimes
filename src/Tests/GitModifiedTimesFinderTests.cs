@@ -27,7 +27,7 @@ public class GitModifiedTimesFinderTests
         using (var repository = RepoBuilder.BuildTestRepository(testDir))
         {
             var modifiedTimes = repository.GetTimes(testDir);
-            ObjectApprover.VerifyWithJson(modifiedTimes, Scrubber(testDir));
+            ObjectApprover.Verify(modifiedTimes, Scrubber(testDir));
         }
     }
 
@@ -39,7 +39,7 @@ public class GitModifiedTimesFinderTests
         {
             repository.FixTimes(testDir, epoch);
         }
-        ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
+        ObjectApprover.Verify(GetNonGitFiles(testDir), Scrubber(testDir));
     }
 
     static string CreateTestDir(string suffix)
@@ -57,7 +57,7 @@ public class GitModifiedTimesFinderTests
                 .Skip(2)
                 .First();
             repository.FixTimes(testDir, epoch, null, commit.Author.When);
-            ObjectApprover.VerifyWithJson(GetNonGitFiles(testDir), Scrubber(testDir));
+            ObjectApprover.Verify(GetNonGitFiles(testDir), Scrubber(testDir));
         }
     }
 
@@ -78,7 +78,7 @@ public class GitModifiedTimesFinderTests
                 .Skip(2)
                 .First();
             var modifiedTimes = repository.GetTimes(testDir, null,commit.Author.When);
-            ObjectApprover.VerifyWithJson(modifiedTimes, Scrubber(testDir));
+            ObjectApprover.Verify(modifiedTimes, Scrubber(testDir));
         }
     }
 
