@@ -1,12 +1,12 @@
 ﻿{
   FoundFiles: [
     {
-      Time: 'DateTimeOffset 1',
+      Time: DateTimeOffset_1,
       RelativePath: 'Three.md',
       Path: 'C:\Three.md'
     },
     {
-      Time: 'DateTimeOffset 2',
+      Time: DateTimeOffset_2,
       RelativePath: 'Two.md',
       Path: 'C:\Two.md'
     }

@@ -1,42 +1,42 @@
 ﻿{
   FoundFiles: [
     {
-      Time: 'DateTimeOffset 1',
+      Time: DateTimeOffset_1,
       RelativePath: 'productB\subproduct\toc.md',
       Path: 'C:\productB\subproduct\toc.md'
     },
     {
-      Time: 'DateTimeOffset 1',
+      Time: DateTimeOffset_1,
       RelativePath: 'productB\toc.md',
       Path: 'C:\productB\toc.md'
     },
     {
-      Time: 'DateTimeOffset 1',
+      Time: DateTimeOffset_1,
       RelativePath: 'productA\toc.md',
       Path: 'C:\productA\toc.md'
     },
     {
-      Time: 'DateTimeOffset 2',
+      Time: DateTimeOffset_2,
       RelativePath: 'Three.md',
       Path: 'C:\Three.md'
     },
     {
-      Time: 'DateTimeOffset 3',
+      Time: DateTimeOffset_3,
       RelativePath: 'Two.md',
       Path: 'C:\Two.md'
     },
     {
-      Time: 'DateTimeOffset 4',
+      Time: DateTimeOffset_4,
       RelativePath: 'Orphan.md',
       Path: 'C:\Orphan.md'
     },
     {
-      Time: 'DateTimeOffset 5',
+      Time: DateTimeOffset_5,
       RelativePath: 'One.md',
       Path: 'C:\One.md'
     },
     {
-      Time: 'DateTimeOffset 6',
+      Time: DateTimeOffset_6,
       RelativePath: 'Another.md',
       Path: 'C:\Another.md'
     }
