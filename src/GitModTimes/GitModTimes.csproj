@@ -2,18 +2,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NoWarn>CS1591</NoWarn>
-    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile Condition="'$(Configuration)'=='Release'">true</GenerateDocumentationFile>
     <Authors>Simon Cropp</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)) Simon Cropp. All rights reserved</Copyright>
     <PackageTags>Git</PackageTags>
     <Description>Helper lib to extract file modified times from a git repository.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/GitModTimes/master/src/icon.png</PackageIconUrl>
     <PackageProjectUrl>http://github.com/SimonCropp/GitModTimes</PackageProjectUrl>
-    <PackageOutputPath>..\..\nugets</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.26.0" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
