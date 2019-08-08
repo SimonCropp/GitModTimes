@@ -7,9 +7,7 @@
 
 http://nuget.org/packages/GitModTimes [![NuGet Status](http://img.shields.io/nuget/v/GitModTimes.svg?style=flat)](https://www.nuget.org/packages/GitModTimes/)
 
-    PM> Install-Package GitModTimes
-
 
 ## Icon
 
-[Return by Dmitry Baranovskiy](https://thenounproject.com/search/?q=git&i=60037) from the [Noun Project](https://thenounproject.com/)
+[Return](https://thenounproject.com/search/?q=git&i=60037) designed by [Dmitry Baranovskiy](https://thenounproject.com/DmitryBaranovskiy/) from [The Noun Project](https://thenounproject.com/).
