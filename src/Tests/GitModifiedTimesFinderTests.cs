@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using GitModTimes;
-using ObjectApproval;
 using Xunit;
 
 public class GitModifiedTimesFinderTests
