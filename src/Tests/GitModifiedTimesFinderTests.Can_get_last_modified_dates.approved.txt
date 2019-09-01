@@ -40,6 +40,5 @@
       RelativePath: 'Another.md',
       Path: 'C:\Another.md'
     }
-  ],
-  MissingFiles: []
+  ]
 }
