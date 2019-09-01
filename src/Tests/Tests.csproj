@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ObjectApproval" Version="11.0.0" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="16.4.0" PrivateAssets="all" />
+    <PackageReference Include="ObjectApproval" Version="11.1.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="LibGit2Sharp" Version="0.26.1" />
