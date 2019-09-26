@@ -8,7 +8,7 @@ namespace GitModTimes
 {
     public static class GitModifiedTimesFinder
     {
-        public static FindResult GetTimes(string gitDirectory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        public static FindResult GetTimes(string gitDirectory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)
         {
             using (var repository = new Repository(gitDirectory))
             {
@@ -16,7 +16,7 @@ namespace GitModTimes
             }
         }
 
-        public static FindResult GetTimes(this Repository repository, string gitDirectory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        public static FindResult GetTimes(this Repository repository, string gitDirectory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)
         {
             var allRelativePaths = repository.GetAllRelativePaths(gitDirectory, includeFile, stopBefore)
                 .ToList();
@@ -107,7 +107,7 @@ namespace GitModTimes
             relativePath: path.GitPath
         );
 
-        static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile includeFile = null, DateTimeOffset? stopBefore = null)
+        static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)
         {
             return from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
                 where
@@ -117,10 +117,10 @@ namespace GitModTimes
                 let gitPath = GetRelativePath(directory, file)
                 where !repository.Ignore.IsPathIgnored(gitPath)
                 select new LinkedPath
-                {
-                    OriginalPath = file,
-                    GitPath = gitPath
-                };
+                (
+                    originalPath: file,
+                    gitPath: gitPath
+                );
         }
 
         static string GetRelativePath(string directory, string file)

@@ -5,7 +5,7 @@ using LibGit2Sharp;
 
 static class Extensions
 {
-    internal static Dictionary<string, ObjectId> GetTipBlobIds(this Repository repository, IEnumerable<string> paths)
+    internal static Dictionary<string, ObjectId?> GetTipBlobIds(this Repository repository, IEnumerable<string> paths)
     {
         var tip = repository.Head.Tip;
         return paths.ToDictionary(
@@ -21,7 +21,7 @@ static class Extensions
         }
     }
 
-    internal static ObjectId RetrieveBlobObjectId(this Commit commit, string path)
+    internal static ObjectId? RetrieveBlobObjectId(this Commit commit, string path)
     {
         var treeEntry = commit[path];
         if (treeEntry == null)

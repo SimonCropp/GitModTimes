@@ -76,7 +76,7 @@ public class GitModifiedTimesFinderTests
             var commit = repository.Commits
                 .Skip(2)
                 .First();
-            var modifiedTimes = repository.GetTimes(testDir, null,commit.Author.When);
+            var modifiedTimes = repository.GetTimes(testDir, null, commit.Author.When);
             ObjectApprover.Verify(modifiedTimes, Scrubber(testDir));
         }
     }
