@@ -10,10 +10,8 @@ namespace GitModTimes
     {
         public static FindResult GetTimes(string gitDirectory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)
         {
-            using (var repository = new Repository(gitDirectory))
-            {
-                return repository.GetTimes(gitDirectory, includeFile, stopBefore);
-            }
+            using var repository = new Repository(gitDirectory);
+            return repository.GetTimes(gitDirectory, includeFile, stopBefore);
         }
 
         public static FindResult GetTimes(this Repository repository, string gitDirectory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)

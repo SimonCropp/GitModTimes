@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using GitModTimes;
+using VerifyXunit;
 using Xunit;
+using Xunit.Abstractions;
 
-public class GitModifiedTimesFinderTests
+public class GitModifiedTimesFinderTests:
+    VerifyBase
 {
     DateTimeOffset epoch = new DateTimeOffset(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
 
-    public GitModifiedTimesFinderTests()
+    public GitModifiedTimesFinderTests(ITestOutputHelper output) :
+        base(output)
     {
         var testDir = Path.Combine(Path.GetTempPath(), "GitModTimes");
         Directory.CreateDirectory(testDir);
@@ -20,25 +25,25 @@ public class GitModifiedTimesFinderTests
     }
 
     [Fact]
-    public void Can_get_last_modified_dates()
+    public Task Can_get_last_modified_dates()
     {
         var testDir = CreateTestDir("Can_get_last_modified_dates");
-        using (var repository = RepoBuilder.BuildTestRepository(testDir))
-        {
-            var modifiedTimes = repository.GetTimes(testDir);
-            ObjectApprover.Verify(modifiedTimes, Scrubber(testDir));
-        }
+        AddScrubber(Scrubber(testDir));
+        using var repository = RepoBuilder.BuildTestRepository(testDir);
+        var modifiedTimes = repository.GetTimes(testDir);
+        return Verify(modifiedTimes);
     }
 
     [Fact]
-    public void Can_fix_dates()
+    public Task Can_fix_dates()
     {
         var testDir = CreateTestDir("Can_fix_dates");
+        AddScrubber(Scrubber(testDir));
         using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
         {
             repository.FixTimes(testDir, epoch);
         }
-        ObjectApprover.Verify(GetNonGitFiles(testDir), Scrubber(testDir));
+        return Verify(GetNonGitFiles(testDir));
     }
 
     static string CreateTestDir(string suffix)
@@ -47,17 +52,16 @@ public class GitModifiedTimesFinderTests
     }
 
     [Fact]
-    public void Can_fix_dates_with_cutoff()
+    public Task Can_fix_dates_with_cutoff()
     {
         var testDir = CreateTestDir("Can_fix_dates_with_cutoff");
-        using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
-        {
-            var commit = repository.Commits
-                .Skip(2)
-                .First();
-            repository.FixTimes(testDir, epoch, null, commit.Author.When);
-            ObjectApprover.Verify(GetNonGitFiles(testDir), Scrubber(testDir));
-        }
+        AddScrubber(Scrubber(testDir));
+        using var repository = RepoBuilder.BuildSimpleTestRepository(testDir);
+        var commit = repository.Commits
+            .Skip(2)
+            .First();
+        repository.FixTimes(testDir, epoch, null, commit.Author.When);
+        return Verify(GetNonGitFiles(testDir));
     }
 
     static IEnumerable<Tuple<string, DateTime>> GetNonGitFiles(string directory)
@@ -68,17 +72,17 @@ public class GitModifiedTimesFinderTests
     }
 
     [Fact]
-    public void Can_get_last_modified_dates_with_cutoff()
+    public Task Can_get_last_modified_dates_with_cutoff()
     {
         var testDir = CreateTestDir("Can_get_last_modified_dates_with_cutoff");
-        using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
-        {
-            var commit = repository.Commits
-                .Skip(2)
-                .First();
-            var modifiedTimes = repository.GetTimes(testDir, null, commit.Author.When);
-            ObjectApprover.Verify(modifiedTimes, Scrubber(testDir));
-        }
+        AddScrubber(Scrubber(testDir));
+        using var repository = RepoBuilder.BuildSimpleTestRepository(testDir);
+        var commit = repository.Commits
+            .Skip(2)
+            .First();
+        var modifiedTimes = repository.GetTimes(testDir, null, commit.Author.When);
+
+        return Verify(modifiedTimes);
     }
 
     static Func<string, string> Scrubber(string testDir)

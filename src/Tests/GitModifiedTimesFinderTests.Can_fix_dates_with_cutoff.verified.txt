@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Item1: 'C:\One.md',
     Item2: DateTime_1

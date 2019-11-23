@@ -12,10 +12,8 @@ namespace GitModTimes
             IncludeFile? includeFile = null,
             DateTimeOffset? stopBefore = null)
         {
-            using (var repository = new Repository(gitDirectory))
-            {
-                repository.FixTimes(gitDirectory, missingFileDateTime, includeFile, stopBefore);
-            }
+            using var repository = new Repository(gitDirectory);
+            repository.FixTimes(gitDirectory, missingFileDateTime, includeFile, stopBefore);
         }
 
         public static void FixTimes(

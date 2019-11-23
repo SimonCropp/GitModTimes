@@ -1,4 +1,4 @@
-﻿{
+{
   FoundFiles: [
     {
       Time: DateTimeOffset_1,
