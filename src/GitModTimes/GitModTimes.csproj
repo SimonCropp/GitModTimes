@@ -8,7 +8,7 @@
     <Description>Helper lib to extract file modified times from a git repository.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LibGit2Sharp" Version="0.26.1" />
+    <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
     <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
   </ItemGroup>
