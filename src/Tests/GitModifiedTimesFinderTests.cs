@@ -28,7 +28,6 @@ public class GitModifiedTimesFinderTests:
     public Task Can_get_last_modified_dates()
     {
         var testDir = CreateTestDir("Can_get_last_modified_dates");
-        AddScrubber(Scrubber(testDir));
         using var repository = RepoBuilder.BuildTestRepository(testDir);
         var modifiedTimes = repository.GetTimes(testDir);
         return Verify(modifiedTimes);
@@ -38,7 +37,6 @@ public class GitModifiedTimesFinderTests:
     public Task Can_fix_dates()
     {
         var testDir = CreateTestDir("Can_fix_dates");
-        AddScrubber(Scrubber(testDir));
         using (var repository = RepoBuilder.BuildSimpleTestRepository(testDir))
         {
             repository.FixTimes(testDir, epoch);
@@ -55,7 +53,6 @@ public class GitModifiedTimesFinderTests:
     public Task Can_fix_dates_with_cutoff()
     {
         var testDir = CreateTestDir("Can_fix_dates_with_cutoff");
-        AddScrubber(Scrubber(testDir));
         using var repository = RepoBuilder.BuildSimpleTestRepository(testDir);
         var commit = repository.Commits
             .Skip(2)
@@ -75,7 +72,6 @@ public class GitModifiedTimesFinderTests:
     public Task Can_get_last_modified_dates_with_cutoff()
     {
         var testDir = CreateTestDir("Can_get_last_modified_dates_with_cutoff");
-        AddScrubber(Scrubber(testDir));
         using var repository = RepoBuilder.BuildSimpleTestRepository(testDir);
         var commit = repository.Commits
             .Skip(2)
@@ -83,11 +79,5 @@ public class GitModifiedTimesFinderTests:
         var modifiedTimes = repository.GetTimes(testDir, null, commit.Author.When);
 
         return Verify(modifiedTimes);
-    }
-
-    static Func<string, string> Scrubber(string testDir)
-    {
-        return s => s.Replace(@"\\", @"\")
-            .Replace(testDir, "C:");
     }
 }

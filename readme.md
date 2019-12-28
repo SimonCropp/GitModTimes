@@ -13,9 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 <!-- toc -->
 ## Contents
 
-  * [Nuget](#nuget)
-<!-- endtoc -->
-
+  * [Nuget](#nuget)<!-- endtoc -->
 
 
 ## Nuget
