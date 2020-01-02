@@ -6,7 +6,7 @@
 toc
 
 
-## Nuget
+## Nuget package
 
 https://www.nuget.org/packages/GitModTimes
 
