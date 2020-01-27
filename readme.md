@@ -26,11 +26,6 @@ https://www.nuget.org/packages/GitModTimes
 To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
-## Release Notes
-
-See [closed milestones](../../milestones?state=closed).
-
-
 ## Icon
 
 [Return](https://thenounproject.com/search/?q=git&i=60037) designed by [Dmitry Baranovskiy](https://thenounproject.com/DmitryBaranovskiy/) from [The Noun Project](https://thenounproject.com/).
