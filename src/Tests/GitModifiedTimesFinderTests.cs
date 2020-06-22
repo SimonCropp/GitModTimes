@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 using GitModTimes;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class GitModifiedTimesFinderTests:
-    VerifyBase
+[UsesVerify]
+public class GitModifiedTimesFinderTests
 {
     DateTimeOffset epoch = new DateTimeOffset(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
 
-    public GitModifiedTimesFinderTests(ITestOutputHelper output) :
-        base(output)
+    public GitModifiedTimesFinderTests()
     {
         var testDir = Path.Combine(Path.GetTempPath(), "GitModTimes");
         Directory.CreateDirectory(testDir);
@@ -30,7 +28,7 @@ public class GitModifiedTimesFinderTests:
         var testDir = CreateTestDir("Can_get_last_modified_dates");
         using var repository = RepoBuilder.BuildTestRepository(testDir);
         var modifiedTimes = repository.GetTimes(testDir);
-        return Verify(modifiedTimes);
+        return Verifier.Verify(modifiedTimes);
     }
 
     [Fact]
@@ -41,7 +39,7 @@ public class GitModifiedTimesFinderTests:
         {
             repository.FixTimes(testDir, epoch);
         }
-        return Verify(GetNonGitFiles(testDir));
+        return Verifier.Verify(GetNonGitFiles(testDir));
     }
 
     static string CreateTestDir(string suffix)
@@ -58,7 +56,7 @@ public class GitModifiedTimesFinderTests:
             .Skip(2)
             .First();
         repository.FixTimes(testDir, epoch, null, commit.Author.When);
-        return Verify(GetNonGitFiles(testDir));
+        return Verifier.Verify(GetNonGitFiles(testDir));
     }
 
     static IEnumerable<Tuple<string, DateTime>> GetNonGitFiles(string directory)
@@ -78,6 +76,6 @@ public class GitModifiedTimesFinderTests:
             .First();
         var modifiedTimes = repository.GetTimes(testDir, null, commit.Author.When);
 
-        return Verify(modifiedTimes);
+        return Verifier.Verify(modifiedTimes);
     }
 }
