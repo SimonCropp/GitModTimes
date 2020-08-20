@@ -15,7 +15,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 <!-- toc -->
 ## Contents
 
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## Nuget package
