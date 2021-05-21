@@ -98,12 +98,12 @@ namespace GitModTimes
                 missingFiles: allRelativePaths.Select(x => x.OriginalPath).ToList());
         }
 
-        static FileTime CreateFileTime(this Commit current, LinkedPath path) => new FileTime
-        (
-            time: current.Committer.When,
-            path: path.OriginalPath,
-            relativePath: path.GitPath
-        );
+        static FileTime CreateFileTime(this Commit current, LinkedPath path) =>
+            new(
+                time: current.Committer.When,
+                path: path.OriginalPath,
+                relativePath: path.GitPath
+            );
 
         static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)
         {

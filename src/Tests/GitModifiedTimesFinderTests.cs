@@ -10,7 +10,7 @@ using Xunit;
 [UsesVerify]
 public class GitModifiedTimesFinderTests
 {
-    DateTimeOffset epoch = new DateTimeOffset(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+    DateTimeOffset epoch = new(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
 
     public GitModifiedTimesFinderTests()
     {
