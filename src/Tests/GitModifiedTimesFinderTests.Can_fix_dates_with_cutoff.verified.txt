@@ -1,14 +1,14 @@
-[
+﻿[
   {
-    Item1: 'TempPath\GitModTimes\Can_fix_dates_with_cutoff\One.md',
+    Item1: {TempPath}\GitModTimes\Can_fix_dates_with_cutoff\One.md,
     Item2: DateTime_1
   },
   {
-    Item1: 'TempPath\GitModTimes\Can_fix_dates_with_cutoff\Three.md',
+    Item1: {TempPath}\GitModTimes\Can_fix_dates_with_cutoff\Three.md,
     Item2: DateTime_2
   },
   {
-    Item1: 'TempPath\GitModTimes\Can_fix_dates_with_cutoff\Two.md',
+    Item1: {TempPath}\GitModTimes\Can_fix_dates_with_cutoff\Two.md,
     Item2: DateTime_3
   }
 ]

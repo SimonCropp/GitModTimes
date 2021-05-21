@@ -1,17 +1,17 @@
-{
+﻿{
   FoundFiles: [
     {
       Time: DateTimeOffset_1,
-      RelativePath: 'Three.md',
-      Path: 'TempPath\GitModTimes\Can_get_last_modified_dates_with_cutoff\Three.md'
+      RelativePath: Three.md,
+      Path: {TempPath}\GitModTimes\Can_get_last_modified_dates_with_cutoff\Three.md
     },
     {
       Time: DateTimeOffset_2,
-      RelativePath: 'Two.md',
-      Path: 'TempPath\GitModTimes\Can_get_last_modified_dates_with_cutoff\Two.md'
+      RelativePath: Two.md,
+      Path: {TempPath}\GitModTimes\Can_get_last_modified_dates_with_cutoff\Two.md
     }
   ],
   MissingFiles: [
-    'TempPath\GitModTimes\Can_get_last_modified_dates_with_cutoff\One.md'
+    {TempPath}\GitModTimes\Can_get_last_modified_dates_with_cutoff\One.md
   ]
 }
