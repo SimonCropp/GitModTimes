@@ -1,4 +1,3 @@
-namespace GitModTimes
-{
-    public delegate bool IncludeFile(string filePath);
-}
+namespace GitModTimes;
+
+public delegate bool IncludeFile(string filePath);

@@ -1,18 +1,14 @@
-using System.Collections.Generic;
-using System.Diagnostics;
+namespace GitModTimes;
 
-namespace GitModTimes
+[DebuggerDisplay("FoundFiles={FoundFiles.Count}, MissingFiles={MissingFiles.Count}")]
+public class FindResult
 {
-    [DebuggerDisplay("FoundFiles={FoundFiles.Count}, MissingFiles={MissingFiles.Count}")]
-    public class FindResult
-    {
-        public IReadOnlyList<FileTime> FoundFiles { get; }
-        public IReadOnlyList<string> MissingFiles { get; }
+    public IReadOnlyList<FileTime> FoundFiles { get; }
+    public IReadOnlyList<string> MissingFiles { get; }
 
-        public FindResult(IReadOnlyList<FileTime> foundFiles, IReadOnlyList<string> missingFiles)
-        {
-            FoundFiles = foundFiles;
-            MissingFiles = missingFiles;
-        }
+    public FindResult(IReadOnlyList<FileTime> foundFiles, IReadOnlyList<string> missingFiles)
+    {
+        FoundFiles = foundFiles;
+        MissingFiles = missingFiles;
     }
 }
