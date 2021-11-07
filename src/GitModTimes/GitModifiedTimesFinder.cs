@@ -89,7 +89,7 @@ public static class GitModifiedTimesFinder
             }
         }
 
-        return new FindResult(
+        return new(
             foundFiles: fileTimes,
             missingFiles: allRelativePaths.Select(x => x.OriginalPath).ToList());
     }
