@@ -23,7 +23,7 @@ public class GitModifiedTimesFinderTests
         var testDir = CreateTestDir("Can_get_last_modified_dates");
         using var repository = RepoBuilder.BuildTestRepository(testDir);
         var modifiedTimes = repository.GetTimes(testDir);
-        return Verifier.Verify(modifiedTimes);
+        return Verify(modifiedTimes);
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class GitModifiedTimesFinderTests
         {
             repository.FixTimes(testDir, epoch);
         }
-        return Verifier.Verify(GetNonGitFiles(testDir));
+        return Verify(GetNonGitFiles(testDir));
     }
 
     static string CreateTestDir(string suffix)
@@ -51,7 +51,7 @@ public class GitModifiedTimesFinderTests
             .Skip(2)
             .First();
         repository.FixTimes(testDir, epoch, null, commit.Author.When);
-        return Verifier.Verify(GetNonGitFiles(testDir));
+        return Verify(GetNonGitFiles(testDir));
     }
 
     static IEnumerable<Tuple<string, DateTime>> GetNonGitFiles(string directory)
@@ -71,6 +71,6 @@ public class GitModifiedTimesFinderTests
             .First();
         var modifiedTimes = repository.GetTimes(testDir, null, commit.Author.When);
 
-        return Verifier.Verify(modifiedTimes);
+        return Verify(modifiedTimes);
     }
 }
