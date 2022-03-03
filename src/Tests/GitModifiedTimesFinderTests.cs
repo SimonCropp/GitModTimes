@@ -1,6 +1,4 @@
 ﻿using GitModTimes;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class GitModifiedTimesFinderTests
