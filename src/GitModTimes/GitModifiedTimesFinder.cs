@@ -101,24 +101,20 @@ public static class GitModifiedTimesFinder
             relativePath: path.GitPath
         );
 
-    static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null)
-    {
-        return from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
-            where
-                !file.Contains(".git") &&
-                (includeFile == null || includeFile(file)) &&
-                (stopBefore == null || File.GetLastWriteTimeUtc(file) > stopBefore.Value.UtcDateTime)
-            let gitPath = GetRelativePath(directory, file)
-            where !repository.Ignore.IsPathIgnored(gitPath)
-            select new LinkedPath
-            (
-                originalPath: file,
-                gitPath: gitPath
-            );
-    }
+    static IEnumerable<LinkedPath> GetAllRelativePaths(this Repository repository, string directory, IncludeFile? includeFile = null, DateTimeOffset? stopBefore = null) =>
+        from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
+        where
+            !file.Contains(".git") &&
+            (includeFile == null || includeFile(file)) &&
+            (stopBefore == null || File.GetLastWriteTimeUtc(file) > stopBefore.Value.UtcDateTime)
+        let gitPath = GetRelativePath(directory, file)
+        where !repository.Ignore.IsPathIgnored(gitPath)
+        select new LinkedPath
+        (
+            originalPath: file,
+            gitPath: gitPath
+        );
 
-    static string GetRelativePath(string directory, string file)
-    {
-        return file.Replace(directory, "").TrimStart(Path.DirectorySeparatorChar);
-    }
+    static string GetRelativePath(string directory, string file) =>
+        file.Replace(directory, "").TrimStart(Path.DirectorySeparatorChar);
 }

@@ -35,10 +35,8 @@ public class GitModifiedTimesFinderTests
         return Verify(GetNonGitFiles(testDir));
     }
 
-    static string CreateTestDir(string suffix)
-    {
-        return Path.Combine(Path.GetTempPath(), "GitModTimes", suffix);
-    }
+    static string CreateTestDir(string suffix) =>
+        Path.Combine(Path.GetTempPath(), "GitModTimes", suffix);
 
     [Fact]
     public Task Can_fix_dates_with_cutoff()
@@ -52,12 +50,10 @@ public class GitModifiedTimesFinderTests
         return Verify(GetNonGitFiles(testDir));
     }
 
-    static IEnumerable<Tuple<string, DateTime>> GetNonGitFiles(string directory)
-    {
-        return from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
-            where !file.Contains(".git")
-            select new Tuple<string, DateTime>(file, File.GetLastWriteTimeUtc(file));
-    }
+    static IEnumerable<Tuple<string, DateTime>> GetNonGitFiles(string directory) =>
+        from file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
+        where !file.Contains(".git")
+        select new Tuple<string, DateTime>(file, File.GetLastWriteTimeUtc(file));
 
     [Fact]
     public Task Can_get_last_modified_dates_with_cutoff()

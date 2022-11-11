@@ -3,7 +3,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <NoWarn>CS1591</NoWarn>
     <Authors>Simon Cropp</Authors>
-    <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)) Simon Cropp. All rights reserved</Copyright>
     <PackageTags>Git</PackageTags>
     <Description>Helper lib to extract file modified times from a git repository.</Description>
   </PropertyGroup>
