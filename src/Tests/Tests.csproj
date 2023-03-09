@@ -12,6 +12,6 @@
     <PackageReference Include="Xunit" Version="2.4.2" />
     <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
     <ProjectReference Include="..\GitModTimes\GitModTimes.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.88" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.89" PrivateAssets="all" />
   </ItemGroup>
 </Project>
