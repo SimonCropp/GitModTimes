@@ -3,5 +3,6 @@
   <PropertyGroup>
     <Version>1.2.1</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 </Project>

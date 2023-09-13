@@ -18,7 +18,7 @@ public static class GitModifiedTimesFinder
         var fileTimes = new List<FileTime>();
         repository.ThrowIfUnborn();
 
-        var tipBlobIds = repository.GetTipBlobIds(allRelativePaths.Select(x => x.GitPath));
+        var tipBlobIds = repository.GetTipBlobIds(allRelativePaths.Select(_ => _.GitPath));
 
         var seen = new HashSet<ObjectId>();
         var queue = new Queue<Commit>();
@@ -32,7 +32,7 @@ public static class GitModifiedTimesFinder
             current = queue.Dequeue();
             var parents = current.Parents.ToList();
 
-            foreach (var commit in parents.OrderByDescending(c => c.Committer.When))
+            foreach (var commit in parents.OrderByDescending(_ => _.Committer.When))
             {
                 if (stopBefore != null && commit.Author.When <= stopBefore.Value)
                 {
@@ -91,7 +91,7 @@ public static class GitModifiedTimesFinder
 
         return new(
             foundFiles: fileTimes,
-            missingFiles: allRelativePaths.Select(x => x.OriginalPath).ToList());
+            missingFiles: allRelativePaths.Select(_ => _.OriginalPath).ToList());
     }
 
     static FileTime CreateFileTime(this Commit current, LinkedPath path) =>
