@@ -4,6 +4,8 @@
 [![NuGet Status](https://img.shields.io/nuget/v/GitModTimes.svg)](https://www.nuget.org/packages/GitModTimes/)
 
 
+**See [Milestones](../../milestones?state=closed) for release notes.**
+
 ## Nuget package
 
 https://www.nuget.org/packages/GitModTimes
