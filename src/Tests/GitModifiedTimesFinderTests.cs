@@ -1,6 +1,5 @@
 ﻿using GitModTimes;
 
-[UsesVerify]
 public class GitModifiedTimesFinderTests
 {
     DateTimeOffset epoch = new(new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
