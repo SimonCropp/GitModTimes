@@ -1,6 +1,4 @@
-﻿using LibGit2Sharp;
-
-static class Extensions
+﻿static class Extensions
 {
     internal static Dictionary<string, ObjectId?> GetTipBlobIds(this Repository repository, IEnumerable<string> paths)
     {

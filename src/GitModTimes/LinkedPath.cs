@@ -1,12 +1,6 @@
 [DebuggerDisplay("GitPath={GitPath}, OriginalPath={OriginalPath}")]
-class LinkedPath
+class LinkedPath(string originalPath, string gitPath)
 {
-    public string OriginalPath { get; }
-    public string GitPath { get; }
-
-    public LinkedPath(string originalPath, string gitPath)
-    {
-        OriginalPath = originalPath;
-        GitPath = gitPath;
-    }
+    public string OriginalPath { get; } = originalPath;
+    public string GitPath { get; } = gitPath;
 }

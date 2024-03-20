@@ -1,5 +1,3 @@
-using LibGit2Sharp;
-
 namespace GitModTimes;
 
 public static class GitModifiedTimesFixer

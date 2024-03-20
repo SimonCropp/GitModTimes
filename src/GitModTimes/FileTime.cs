@@ -1,16 +1,9 @@
 ﻿namespace GitModTimes;
 
 [DebuggerDisplay("RelativePath={RelativePath}, Time={Time}, Path={Path}")]
-public class FileTime
+public class FileTime(DateTimeOffset time, string relativePath, string path)
 {
-    public FileTime(DateTimeOffset time, string relativePath, string path)
-    {
-        Time = time;
-        RelativePath = relativePath;
-        Path = path;
-    }
-
-    public DateTimeOffset Time { get; }
-    public string RelativePath { get; }
-    public string Path { get; }
+    public DateTimeOffset Time { get; } = time;
+    public string RelativePath { get; } = relativePath;
+    public string Path { get; } = path;
 }

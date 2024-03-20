@@ -1,6 +1,4 @@
-﻿using LibGit2Sharp;
-
-namespace GitModTimes;
+﻿namespace GitModTimes;
 
 public static class GitModifiedTimesFinder
 {
