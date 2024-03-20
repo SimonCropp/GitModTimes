@@ -1,6 +1,4 @@
-﻿using LibGit2Sharp;
-
-class RepoBuilder
+﻿class RepoBuilder
 {
     public static Repository BuildSimpleTestRepository(string directory)
     {
@@ -8,22 +6,28 @@ class RepoBuilder
 
         var repository = new Repository(directory);
         AddCommit(repository, "One", "a@a", "2012-04-17T08:12:35+02:00",
-            new[]
-            {
-                new[] {"One.md", "a"},
-            });
+        [
+            [
+                "One.md",
+                "a"
+            ]
+        ]);
 
         AddCommit(repository, "Two", "b@b", "2012-04-17T08:14:35+02:00",
-            new[]
-            {
-                new[] {"Two.md", "a"},
-            });
+        [
+            [
+                "Two.md",
+                "a"
+            ]
+        ]);
 
         AddCommit(repository, "Three", "c@c", "2012-04-17T08:22:35+02:00",
-            new[]
-            {
-                new[] {"Three.md", "a"},
-            });
+        [
+            [
+                "Three.md",
+                "a"
+            ]
+        ]);
         return repository;
     }
 
@@ -33,58 +37,80 @@ class RepoBuilder
 
         var repository = new Repository(directory);
         AddCommit(repository, "A", "a@a", "2012-04-17T08:12:35+02:00",
-            new[]
-            {
-                new[] {"One.md", "a"},
-                new[] {"Another.md", "a"},
-            });
+        [
+            [
+                "One.md",
+                "a"
+            ],
+            [
+                "Another.md",
+                "a"
+            ]
+        ]);
 
         AddCommit(repository, "B", "b@b", "2012-04-17T08:14:35+02:00",
-            new[]
-            {
-                new[] {"Two.md", "a"},
-            });
+        [
+            [
+                "Two.md",
+                "a"
+            ]
+        ]);
 
         AddCommit(repository, "C", "c@c", "2012-04-17T08:16:35+02:00",
-            new[]
-            {
-                new[] {"One.md", "b"},
-            });
+        [
+            [
+                "One.md",
+                "b"
+            ]
+        ]);
 
         AddCommit(repository, "A", "a@a", "2012-04-17T08:18:35+02:00",
-            new[]
-            {
-                new[] {"Orphan.md", "b"},
-            });
+        [
+            [
+                "Orphan.md",
+                "b"
+            ]
+        ]);
 
         AddMergeCommit(repository, "B", "b@b", "2012-04-17T08:20:35+02:00",
-            new[]
-            {
-                new[] {"Two.md", "b"},
-            });
+        [
+            [
+                "Two.md",
+                "b"
+            ]
+        ]);
 
         AddCommit(repository, "C", "c@c", "2012-04-17T08:22:35+02:00",
-            new[]
-            {
-                new[] {"Three.md", "a"},
-            });
+        [
+            [
+                "Three.md",
+                "a"
+            ]
+        ]);
 
         AddCommit(repository, "D", "d@d", "2012-04-17T08:23:39+02:00",
-            new[]
-            {
-                new[] {@"productA\toc.md", "a"},
-                new[] {@"productB\toc.md", "a"}
-            });
+        [
+            [
+                @"productA\toc.md",
+                "a"
+            ],
+            [
+                @"productB\toc.md",
+                "a"
+            ]
+        ]);
 
         AddCommit(repository, "D", "d@d", "2012-04-17T08:23:42+02:00",
-            new[]
-            {
-                new[] {@"productB\subproduct\toc.md", "a"}
-            });
+        [
+            [
+                @"productB\subproduct\toc.md",
+                "a"
+            ]
+        ]);
         return repository;
     }
 
-    static void AddMergeCommit(IRepository repository, string name, string email, string date, IEnumerable<string[]> content)
+    static void AddMergeCommit(IRepository repository, string name, string email, string date, List<string[]> content)
     {
         var formerHead = repository.Head.Tip;
         var c = AddCommit(repository, name, email, date, content);
@@ -95,7 +121,7 @@ class RepoBuilder
         repository.Refs.UpdateTarget(repository.Refs.Head.ResolveToDirectReference(), m.Id);
     }
 
-    static Commit AddCommit(IRepository repository, string name, string email, string date, IEnumerable<string[]> content)
+    static Commit AddCommit(IRepository repository, string name, string email, string date, List<string[]> content)
     {
         var dateTimeOffset = DateTimeOffset.Parse(date);
         var sign = new Signature(name, email, dateTimeOffset);
