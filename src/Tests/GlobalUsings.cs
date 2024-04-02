@@ -1,3 +1,1 @@
-﻿// Global using directives
-
-global using LibGit2Sharp;
+﻿global using LibGit2Sharp;
