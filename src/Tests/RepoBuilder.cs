@@ -116,7 +116,7 @@
         var c = AddCommit(repository, name, email, date, content);
 
         var sign = new Signature(c.Author.Name, c.Author.Email, c.Author.When.AddSeconds(17));
-        var m = repository.ObjectDatabase.CreateCommit(sign, sign, "merge", c.Tree, new[] {formerHead, c}, false);
+        var m = repository.ObjectDatabase.CreateCommit(sign, sign, "merge", c.Tree, [formerHead, c], false);
 
         repository.Refs.UpdateTarget(repository.Refs.Head.ResolveToDirectReference(), m.Id);
     }
