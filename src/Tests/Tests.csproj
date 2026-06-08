@@ -15,7 +15,6 @@
     <PackageReference Include="EmptyFiles" />
     <PackageReference Include="SimpleInfoName" />
     <PackageReference Include="Verify" />
-    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="LibGit2Sharp" />
     <ProjectReference Include="..\GitModTimes\GitModTimes.csproj" />
